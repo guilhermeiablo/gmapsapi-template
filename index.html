@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 	
-  
-  <head>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
-		<meta charset="UTF-8" />
-		<title>Google Maps template</title>
-		<style>
-			html, body {
-				height: 100%;
-				margin: 0;
-				padding: 0
-			}
-			#EmplacementDeMaCarte {
-				height: 100%
-			}
-		</style>
-	</head>
-	
-  
+
+	<head>
+    <title>Styled Map Types</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
   <body>
-		<div id="EmplacementDeMaCarte"></div>
-		<noscript>
+    <div id="map"></div>
+	 <noscript>
 			<p>Attention : </p>
 			<p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
 			<p>Or, il semble que JavaScript est désactivé ou qu'il ne soit pas supporté par votre navigateur.</p>
 			<p>Pour afficher Google Maps, activez JavaScript en modifiant les options de votre navigateur, puis essayez à nouveau.</p>
-		</noscript>
-		
+	</noscript>
+   
 	  <script>
-	  function initMap() {
+      function initMap() {
 
         // Create a new StyledMapType object, passing it an array of styles,
         // and the name to be displayed on the map type control.
@@ -162,10 +163,8 @@
         map.setMapTypeId('styled_map');
       }
     </script>
-	  
-	<script async defer
-    	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk7daV9DG5eQyzwTY1pusAJ-3meUbpRhc&callback=initMap">
-    	</script>
-	  
-	</body>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7EbsfOvDeIejiDgNN2BmOfNF6is54goE&callback=initMap">
+    </script>
+  </body>
 </html>
