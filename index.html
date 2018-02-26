@@ -24,7 +24,11 @@
 	  <div id="map"></div>
    
 	  <script>
-      function initMap() {
+     
+	var map;
+	var markers = [];
+		  
+	function initMap() {
 
         // Create a new StyledMapType object, passing it an array of styles,
         // and the name to be displayed on the map type control.
@@ -143,7 +147,7 @@
 
         // Create a map object, and include the MapTypeId to add
         // to the map type control.
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -30.035241, lng: -51.231853},
           zoom: 16,
           mapTypeControlOptions: {
@@ -152,8 +156,6 @@
         });
 	
 	      
-	var markers =[];
-	      
 	//Associate the styled map with the MapTypeId and set it to display.
         map.mapTypes.set('styled_map', styledMapType);
         map.setMapTypeId('styled_map');
@@ -161,27 +163,26 @@
 	      
 	var locations = [
 		{title: 'Mercado Público', location: {lat: -30.027628, lng: -51.227586}},
-		{title: 'Pomodorino', location: {lat: -30.035241, lng: -51.231853}}
+		{title: 'Pomodorino', location: {lat: -30.035241, lng: -51.231853}},
+		{title: 'Weinstein', location {lat: -30.032372, lng: -51.236643}}
 		];
 	      
-	var largeinfowindow = new google.maps.InfoWindow();
-	var bounds = new google.maps.LatLngBounds();
-		
-		// The following groupe uses the location array to create an array of markers on initialize
-	      for (var i = 0; i< locations.length; i++) {
-		//Get the position from the location array.
-		var position = locations[i].location;
-		var title = locations[i].title;
-	      //Create a marker per location, and put into markers array
-	      var marker = new google.maps.Marker({
-		position: position,
-		map: map,
-		title: title,
-		animation: google.maps.Animation.DROP,
-		id: i
-	});
-	
-		// Push the marker to our array of markers.
+	var largeInfowindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds();
+        // The following group uses the location array to create an array of markers on initialize.
+        for (var i = 0; i < locations.length; i++) {
+          // Get the position from the location array.
+          var position = locations[i].location;
+          var title = locations[i].title;
+          // Create a marker per location, and put into markers array.
+          var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: google.maps.Animation.DROP,
+            id: i
+          });
+          // Push the marker to our array of markers.
           markers.push(marker);
           // Create an onclick event to open an infowindow at each marker.
           marker.addListener('click', function() {
