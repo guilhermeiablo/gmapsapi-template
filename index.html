@@ -178,30 +178,34 @@
 		id: i
 	});
 	
-		//Push the marker to our array of markers
-		markers.push(marker);
-		//Extend the boundaries of the map for each marker
-		bounds.extend(marker.position);		
-		// Create as onclick event to open an infowindow at each marker
-		marker.addListener('click', function() {
-			populateInforWindow(this, largeInfoWindow);
-		});
+		// Push the marker to our array of markers.
+          markers.push(marker);
+          // Create an onclick event to open an infowindow at each marker.
+          marker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+          });
+          bounds.extend(markers[i].position);
+        }
+        // Extend the boundaries of the map for each marker
+        map.fitBounds(bounds);
       }
-	      	map.fitBounds(bounds);
 	      
-	//This function populates the infowindw when the marker is clicked. We'll only allow
-	// one infowindow which will open at the marker that is clicker, and populate based
-	// on that markers position.
-	      function populateInfoWindow(marker, infowindow) {
-		      infowindow.marker = marker;
-		      infowindow.setContent('<div>'+ marker.title + '</div>');
-		      infowindow.open(map, marker);
-	// Make sure the marker property is cleared if the infowindow is closed.
-		      infowindow.addListener('closeclick', function(){
-			      infowindow.setMarker(null)
-		      });
-	      }
+	// This function populates the infowindow when the marker is clicked. We'll only allow
+      // one infowindow which will open at the marker that is clicked, and populate based
+      // on that markers position.
+      function populateInfoWindow(marker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+          infowindow.marker = marker;
+          infowindow.setContent('<div>' + marker.title + '</div>');
+          infowindow.open(map, marker);
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick',function(){
+            infowindow.setMarker = null;
+          });
+        }
       }
+
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTaLkUlBv1hU3SkA4gmKl_M9QB2_rYFYI&callback=initMap">
