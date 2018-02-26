@@ -21,13 +21,7 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
-	 <noscript>
-			<p>Attention : </p>
-			<p>Afin de pouvoir utiliser Google Maps, JavaScript doit être activé.</p>
-			<p>Or, il semble que JavaScript est désactivé ou qu'il ne soit pas supporté par votre navigateur.</p>
-			<p>Pour afficher Google Maps, activez JavaScript en modifiant les options de votre navigateur, puis essayez à nouveau.</p>
-	</noscript>
+	  <div id="map"></div>
    
 	  <script>
       function initMap() {
@@ -157,6 +151,51 @@
                     'styled_map']
           }
         });
+	var locations = [
+		{title: 'Portinho', location: {lat: -55.647, lng: -37.581}},
+		{title: 'Portinho', location: {lat: -51.231853, lng: -30.035241}}
+		];
+	      
+	var largeinfowindow = new google.maps.InfoWindow();
+	var bounds = new google.maps.LatLngBounds();
+		
+		// The following groupe uses the location array to create an array of markers on initialize
+	      for (var i = 0; i< locations.length; i++) {
+		//Get the position from the location array.
+		var position = locations[i].location;
+		var title = locations[i].title;
+	      //Create a marker per location, and put into markers array
+	      var marker = new google.maps.Marker({
+		position: position,
+		map: map,
+		title: title,
+		animation: google.maps.Animation.DROP,
+		id: i
+	});
+	
+		//Push the marker to our array of markers
+		markers.push(marker);
+		//Extend the boundaries of the map for each marker
+		bounds.extend(marker.position);		
+		// Create as onclick event to open an infowindow at each marker
+		marker.addListener('click', function() {
+			populateInforWindow(this, largeInfoWindow);
+		});
+      }
+	      	map.fitBounds(bounds);
+	      
+	//This function populates the infowindw when the marker is clicked. We'll only allow
+	// one infowindow which will open at the marker that is clicker, and populate based
+	// on that markers position.
+	      function populateInfoWindow(marker, infowindow) {
+		      infowindow.marker = marker;
+		      infowindow.setContent('<div>'+ marker.title + '</div>');
+		      infowindow.open(map, marker);
+	// Make sure the marker property is cleared if the infowindow is closed.
+		      infowindow.addListener('closeclick', function(){
+			      infowindow.setMarker(null);
+		      });
+	      }
 
         //Associate the styled map with the MapTypeId and set it to display.
         map.mapTypes.set('styled_map', styledMapType);
